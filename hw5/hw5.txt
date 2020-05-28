@@ -1,0 +1,32 @@
+Problem 1: Heaps
+
+1.      C
+      /   \
+     H     E
+    / \   / \
+   M   I S   T
+  / \
+ R   Y
+
+2.This is a minHeap because every child is "less" than its parent as it comes later in the alphabet. C is before H 
+  and E, H is before M and I, E is before S and T, and M is before R and Y.
+
+
+3.       C
+       /   \
+      /     \
+     D       E
+    / \     / \
+   /   \   /   \
+  M     H S     T
+ / \   /
+R   Y I
+
+
+4.      D
+      /   \
+     H     E
+    / \   / \
+   M   I S   T
+  / \
+ R   Y

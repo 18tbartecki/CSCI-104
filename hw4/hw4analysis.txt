@@ -1,0 +1,30 @@
+1. My high-level approach is for each command to use the same vector to dermine which line to jump to. 
+	The vector is delcared in interpreter.h and filled with line nums in interpreter.cpp on line 190. In lines 
+	275-291, IF, GOSUB, or GOTO returns the line number to jump to and I iterate through the vector until it is
+	found, taking O(n) where n is number of lines. I then set the value iterating through the main vector to one
+	less than the value with the jumped to line (taking O(1)), as i will increment once before executing again.
+	This results in O(n) runtime from searching for the line number in the vector. 
+
+2. When a RETURN is seen, it calls execute on the command which is implemented in command.cpp at lines 136-150. 
+	This checks if the stack is empty, taking O(1), then either returns the value at the top of the stack, also
+	taking O(1), or throws an exception. Assuming it is not empty, this returns the line number of the last GOSUB
+	which is then evaluated at lines 261-270 in interpreter.cpp. These lines first recheck the stack is nonempty
+	and the line is correct, taking O(1), then pop the top value, also taking O(1). Similar to question 1, I then
+	iterate through the vector of all line numbers, taking O(n) where n is number of lines, to find the index to
+	return to in the vector of full commands and set this index, taking O(1). Overall this takes O(n) time since
+	the stack functions all take O(1) and searching the vector takes O(n).
+
+3. To determine the value of a variable or overwrite it, I used a map from strings to ints as my high-level
+	approach. I declared the map in interpreter.h and added to it/modified it in command.cpp in lines 99-111.
+	These lines declare an iterator and use find, taking O(logN) with N as number of variables, to locate the
+	index of the variable if it has already been initialized. It checks if the iterator points to the end of
+	the map, taking O(1), then changes the value if it doesn't, taking O(1), or inserts the variable into the
+	map, taking O(logN). The insert function still only takes O(logN) because while it calls getValue, which is 
+	implemented in arithmetic.cpp, this takes a maximum of O(logN) if the expression is a Variable, giving 
+	O(logN + logN) which is just O(logN). Overall then, analyzing a Variable takes O(logN) since no functions 
+	exceed this threshold.
+
+4. Very similarly to number 3, analyzing an array entry also takes O(logN). The only difference between an
+	ArrayVariable and a NumericVariable is that the full name of the ArrayVariable must be formed before
+	searching the map. Since we are assuming the aexpr inside the brackets is already calculated, this takes O(1),
+	the ArrayVariable goes through the exact same function as NumericVariable, and the runtime for is O(logN).
