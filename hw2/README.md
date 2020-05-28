@@ -5,4 +5,4 @@
 - **USC Email**: bartecki@usc.edu
 
 
-Each input file is taken in and parsed, returning the proper BASIC syntax.
+Program is a recursive parser utilizing complex inheritance structure with over 25 classes to produce statements in BASIC programming language. Each input file is taken in and parsed, returning the proper BASIC syntax.
